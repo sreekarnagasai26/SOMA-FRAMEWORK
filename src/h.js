@@ -21,7 +21,7 @@ function withoutNulls(arr){
 }
 // != instead of !== to remove both null and undefined
 
-function mapTextNodes(){
+function mapTextNodes(children){
     return children.map((child) => 
     typeof child === 'string' ? hString(child) : child)
 }

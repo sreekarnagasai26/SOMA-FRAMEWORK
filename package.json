@@ -1,6 +1,6 @@
 {
   "name": "soma-runtime",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "exports": "./dist/soma-fwk.js",
   "main": "dist/soma-fwk.js",
   "module": "dist/soma-fwk.js",

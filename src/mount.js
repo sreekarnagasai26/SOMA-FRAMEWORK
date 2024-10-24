@@ -22,7 +22,7 @@ export function mountDOM(vdom, parentE1){
 }
 
 //createTextNode()
-function createTextNode(vdom, parentE1){
+export function createTextNode(vdom, parentE1){
     const {value} = vdom
 
     const textNode = document.createTextNode(value)
@@ -32,7 +32,7 @@ function createTextNode(vdom, parentE1){
 }
 
 //create fragment Nodes
-function createFragmentNodes(vdom,parentE1){
+export function createFragmentNodes(vdom,parentE1){
     const {children} = vdom
     vdom.el = parentE1
 
@@ -40,7 +40,7 @@ function createFragmentNodes(vdom,parentE1){
 }
 //create Element Nodes
 
-function createElementNode(vdom, parentE1){
+export function createElementNode(vdom, parentE1){
     const {tag, props, children} = vdom
 
     const element = document.createElement(tag)
@@ -51,7 +51,7 @@ function createElementNode(vdom, parentE1){
     parentE1.append(element)
 }
 
-function addProps(el,props,vdom){
+export function addProps(el,props,vdom){
     const {on:events, ...attrs} = props
     vdom.listeners = addEventListeners(events, el)
     setAttributes(el, attrs)
@@ -83,12 +83,12 @@ export function destroyDOM(vdom){
     }
 }
 
-function removeTextNode(vdom){
+export function removeTextNode(vdom){
  const {el} = vdom
  el.remove()
 }
 
-function removeElementNode(vdom){
+export function removeElementNode(vdom){
 const {el,children,listeners} = vdom
 
 el.remove()
@@ -100,7 +100,7 @@ if(listeners){
 }
 }
 
-function removeEventListeners(listeners = {}, el){
+fexport unction removeEventListeners(listeners = {}, el){
     Object.entries(listeners).forEach(([eventName, handler]) => {
         el.removeEventListener(eventName,handler)
     })
