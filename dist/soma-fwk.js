@@ -1,3 +1,53 @@
+function addEventListener(eventName,handler,el){
+    el.addEventListener(eventName, handler);
+    return handler
+}
+function addEventListeners(listeners = {},el){
+    Object.entries(listeners).forEach(([eventName, handler])=>{
+        const listener = addEventListener(eventName, handler,el);
+        addEventListeners[eventName] = listener;
+    });
+    return listeners
+}
+
+function setAttributes(el, attrs){
+    const {class:className, style, ...otherAttrs} = attrs;
+    if(className){
+        setClass(el,className);
+    }
+    if(style){
+        Object.entries(style).forEach(([prop,value]) => {
+            setStyle(el,prop,value);
+        });
+    }
+    for(const [name,value] of Object.entries(otherAttrs)){
+        setAttribute(el,name,value);
+    }
+}
+function setClass(el, className){
+ el.className = '';
+ if(typeof className === 'string'){
+    el.className = className;
+ }
+ if(Array.isArray(className)){
+    el.classList.add(...className);
+ }
+}
+function setStyle(el,name,value){
+ el.style[name] = value;
+}
+function setAttribute(el,name,value){
+if(value == null){
+    removeAttribute(el,name);
+}
+else if(name.startsWith('data-')){
+    el.setAttribute(name, value);
+}
+else {
+    el[name] = value;
+}
+}
+
 function mountDOM(vdom, parentE1){
     switch(vdom.type){
         case DOM_TYPES.TEXT : {
@@ -58,7 +108,7 @@ return {
 function withoutNulls(arr){
     return arr.filter((item) => item != null)
 }
-function mapTextNodes(){
+function mapTextNodes(children){
     return children.map((child) =>
     typeof child === 'string' ? hString(child) : child)
 }
@@ -78,4 +128,4 @@ const vdom = h('form',{class:'login-form',action:'login'},
             [h('input',{type:'text',name:'user'}),h('input',{type:'password',name:'pass'}),h('button',{on:{click:login}},['Login'])]);
 mountDOM(vdom, document.body);
 
-export { DOM_TYPES, h, hString, hfragment };
+export { DOM_TYPES, h, hString, hfragment, mountDOM };

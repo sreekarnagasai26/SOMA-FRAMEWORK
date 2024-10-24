@@ -1,5 +1,6 @@
 import { DOM_TYPES } from "./h";
-
+import { addEventListeners } from "./events";
+import { setAttributes } from "./attributes";
 
 export function mountDOM(vdom, parentE1){
     switch(vdom.type){
@@ -100,7 +101,7 @@ if(listeners){
 }
 }
 
-fexport unction removeEventListeners(listeners = {}, el){
+export function removeEventListeners(listeners = {}, el){
     Object.entries(listeners).forEach(([eventName, handler]) => {
         el.removeEventListener(eventName,handler)
     })
